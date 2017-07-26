@@ -3,6 +3,7 @@
 
 void nhapchuoi()
 {
+	//phai luon cap thua so luong phan tu trong chuoi
 	int arr[50],chuoi[50],a,b,m,n,k,j,i;
 	printf("Nhap so phan tu cho chuoi 1: ");
 	scanf("%d",&m);
@@ -29,13 +30,13 @@ void nhapchuoi()
 	int M =  n;
    for(i=N-1;i>=k;i--)
     {
-    	arr[i+M]=arr[i];
-    	arr[i]='\0';
+    	arr[i+M]=arr[i];//day lui phan tu tu vi tri can chen di M lan
+    	arr[i]='\0';//cho cho chuan bi chen rong
     	
 	}
 	for( j=M-1;j>=0;j--)
 	{
-		arr[j+k]=chuoi[j];
+		arr[j+k]=chuoi[j];//dua dan phan tu o mang 2 vao trong cho can chen
 	}
 	    for (i = 0; i < N+M; i++) {
 			printf("%d\n", arr[i]);
