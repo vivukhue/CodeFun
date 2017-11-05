@@ -1,0 +1,68 @@
+//Day la bai toan LIS co su dung dynamic progamming va truy vet
+
+#include<iostream>
+#include<algorithm>
+
+using namespace std;
+
+int main()
+{
+    ios_base::sync_with_stdio(false);
+    int n;
+    int arr[20];
+    int ans[20];
+
+    cin>>n;
+    for(int i=1;i<=n;i++)
+    {
+        cin>>arr[i];
+    }
+
+    int Limax=0,k;
+    int L[n];
+    int Ljmax=1;
+    L[1]=1;
+
+    for(int i=2;i<=n;i++)
+    {
+        L[i]=1;
+        Ljmax=0;
+        for(int j=1;j<i;j++)
+        {
+                if(L[j]>=Ljmax&&arr[j]<=arr[i])
+                    Ljmax=L[j];
+        }
+        L[i]=Ljmax+1;
+
+    }
+
+    for(int i=1;i<=n;i++)
+    {
+        if(Limax<L[i])
+        {
+            Limax=L[i];
+            k=i;
+        }
+    }
+
+    cout<<endl;
+    cout<<Limax<<endl; //in ra do dai day con tang dai nhat
+
+    int Lk=Limax;
+    ans[Lk]=k;
+
+    for(int i=k-1;i>=1&&Lk>0;i--)
+    {
+        if(L[i]==Lk-1&&arr[i]<=arr[k])
+        {
+            ans[Lk-1]=i;
+            Lk--;
+            k=i;
+        }
+    }
+
+    for(int i=1;i<=Limax;i++)
+    {
+        cout<<ans[i]<<" ";//in ra vi tri tung phan tu cua day con
+    }
+}
