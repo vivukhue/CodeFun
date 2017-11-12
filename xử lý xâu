@@ -1,0 +1,149 @@
+#include<bits/stdc++.h>
+
+using namespace std;
+
+int sobenhat(int x,int y,int z)
+{
+    if(x<=y&&x<=z)
+        return x;
+    else if(y<=x&&y<=z)
+        return y;
+    else if(z<=x&&z<=y)
+        return z;
+}
+
+/*int xuly(string a,string b,int n,int m)
+{
+    int L[n+1][m+1];
+    int i,j;
+
+    for(i=0;i<=n;i++)
+    {
+        L[i][0]=i;
+    }
+
+    for(j=0;j<=m;j++)
+    {
+        L[0][j]=j;
+    }
+
+
+    for(i=1;i<=n;i++)
+    {
+        for(j=1;j<=m;j++)
+        {
+            if(a[i]==b[j])
+                L[i][j]=L[i-1][j-1];
+            else
+            {
+                L[i][j]=sobenhat(L[i-1][j]+1,L[i][j-1]+1,L[i-1][j-1]+1);
+            }
+        }
+    }
+
+    return L[n][m];
+}*/
+
+int main()
+{
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    string arr;
+    string result;
+
+    cin>>arr;
+    cin>>result;
+
+    int n=arr.length();
+    int m=result.length();
+    int temp=m;
+
+    arr="0"+arr;
+    result="0"+result;
+
+    //cout<<xuly(arr,result,n,m);
+
+
+    int L[n+1][m+1];
+    int i,j;
+
+    for(i=0;i<=n;i++)
+    {
+        L[i][0]=i;
+    }
+
+    for(j=0;j<=m;j++)
+    {
+        L[0][j]=j;
+    }
+
+
+    for(i=1;i<=n;i++)
+    {
+        for(j=1;j<=m;j++)
+        {
+            if(arr[i]==result[j])
+                L[i][j]=L[i-1][j-1];
+            else
+            {
+                L[i][j]=sobenhat(L[i-1][j]+1,L[i][j-1]+1,L[i-1][j-1]+1);
+            }
+        }
+    }
+
+  //  cout<<L[n][m];
+
+ //   int minstep=L[n][m];
+    int m1=m;
+    int anslength=m;
+    int ans[m+1];
+
+    while(m>=0||n>=0)
+    {
+        if(arr[n]==result[m])
+        {
+            ans[anslength]=0;
+            anslength--;
+            n--;
+            m--;
+        }
+        else if(L[n][m]==L[n-1][m]+1)
+        {
+            ans[anslength]=2;
+            anslength--;
+            n--;
+        }
+        else if(L[n][m]==L[n-1][m-1]+1)
+        {
+            ans[anslength]=3;
+            anslength--;
+            n--;
+            m--;
+        }
+        else if(L[n][m]==L[n][m-1]+1)
+        {
+            ans[anslength]=1;
+            anslength--;
+            m--;
+        }
+    }
+ //   cout<<L[n][m];
+
+    for(i=1;i<m1;i++)
+    {
+        if(ans[i]==1)
+            cout<<"INSERT "<<i<<" "<<result[i]<<endl;
+        else if(ans[i]==2)
+            cout<<"DELETE "<<i<<" "<<result[i]<<endl;
+        else if(ans[i]==3)
+            cout<<"REPLACE "<<i<<" "<<result[i]<<endl;
+    }
+
+    if(ans[m1]==1)
+            cout<<"INSERT "<<m1<<" "<<result[m1];
+    else if(ans[m1]==2)
+            cout<<"DELETE "<<m1<<" "<<result[m1];
+    else if(ans[m1]==3)
+            cout<<"REPLACE "<<m1<<" "<<result[m1];
+}
