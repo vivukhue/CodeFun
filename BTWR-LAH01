@@ -1,0 +1,41 @@
+#include<bits/stdc++.h>
+//Đây là bài toán sử dụng quy hoạch động
+//Nó gần giống bài LIS
+
+using namespace std;
+
+int BTWR(int n,int A[],int B[])
+{
+  int L[n+1];
+  for(int i=1;i<=n;i++)
+  {
+    L[i]=1;
+    for(int j=1;j<i;j++)
+    {
+      if(L[i]<=L[j]&&A[i]<A[j]&&B[i]<B[j])
+      {
+        L[i]=L[j]+1;
+      }
+    }
+  }
+  
+  sort(L+1,L+n);
+  return L[n];
+}
+
+int main()
+{
+  ios_base::sync_with_stdio(false);
+  int n;
+  cin>>n;
+  
+  int A[n+1];
+  int B[n+1];
+  for(int i=1;i<=n;i++)
+  {
+    cin>>A[i];
+    cin>>B[i];
+  }
+  
+  cout<<BTWR(n,A,B);
+  }
