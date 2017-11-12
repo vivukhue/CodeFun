@@ -1,0 +1,62 @@
+/*
+    goi i la so loai dong tien se doi
+    j la so tien toi da ko duoc vuot qua
+    L(n,c) sẽ là đáp số của bài toán (là giá trị lớn nhất có được nếu chọn n loai tiền và tổng giá trị không vượt quá c).
+
+    Công thức tính L(i,j) như sau:
+
+L(i,0)=1
+L(0,j)=0
+L(i,j)=L(i−1,j)nếu t<Ai
+L(i,j)=min(L(i−1,j),L(i,j−Ai)+1) nếu j≥Ai
+Trong đó: L(i−1,j) là giá trị có được nếu không chọn loại tiền i để đổi,
+L(i,j−Ai)+1 là giá trị có được nếu chọn vật i.
+*/
+#include<iostream>
+
+using namespace std;
+
+int coinchange(int c,int n,int A[])
+{
+  int L[c+1];
+
+  for(int i=0;i<=n;i++)
+  {
+    for(int j=0;j<=c;j++)
+    {
+      if(i==0&&j>0)
+      {
+           L[j]=c;
+      }
+
+      if(j==0)
+      {
+        L[j]=0;
+      }
+
+      else if(A[i]<=j)
+      {
+        L[j]=min(L[j-A[i]]+1,L[j]);
+      }
+    }
+  }
+
+  return L[c];
+}
+
+int main()
+{
+
+  int n;
+  int c;
+  int arr[101];
+
+  cin>>n;
+  cin>>c;
+  for(int i=1;i<=n;i++)
+  {
+    cin>>arr[i];
+  }
+
+  cout<<coinchange(c,n,arr);
+}
